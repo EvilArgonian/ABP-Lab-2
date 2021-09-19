@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package abp.lab.pkg2;
 
 import java.util.ArrayList;
@@ -17,13 +12,13 @@ import java.util.Scanner;
 public class AminoQuiz {
     
     
-    private static ArrayList<String> SHORT_NAMES = new ArrayList( Arrays.asList( new String[] {
+    private static ArrayList<String> SHORT_NAMES = new ArrayList<>( Arrays.asList( new String[] {
         "A","R", "N", "D", "C", "Q", "E", 
         "G",  "H", "I", "L", "K", "M", "F", 
         "P", "S", "T", "W", "Y", "V"
     }));
     
-    private static ArrayList<String> FULL_NAMES = new ArrayList( Arrays.asList( new String[] {
+    private static ArrayList<String> FULL_NAMES = new ArrayList<>( Arrays.asList( new String[] {
         "alanine","arginine", "asparagine", 
         "aspartic acid", "cysteine",
         "glutamine",  "glutamic acid",
@@ -36,7 +31,6 @@ public class AminoQuiz {
     
     private ArrayList<Integer> usedQuestions = new ArrayList<>();
     
-    private boolean timed;
     private int seconds;
     private long millisecondsTaken;
     
@@ -51,10 +45,8 @@ public class AminoQuiz {
     private boolean keepRunning;
 
     public AminoQuiz() { //Default quiz, as described before Extra Credit.
-        this.timed = true;
         this.seconds = 30;
         this.millisecondsTaken = 0;
-        this.questionsLimited = false;
         this.numQuestions = -1;
         this.questionsLeft = this.numQuestions;
         this.correctAnswers = 0;
@@ -74,8 +66,6 @@ public class AminoQuiz {
      * @param endOnIncorrect 
      */
     public AminoQuiz(boolean questionsLimited, int secondsOrQuestions, boolean endOnIncorrect) {
-        this.timed = !questionsLimited;
-        this.questionsLimited = questionsLimited;
         if (questionsLimited) {
             this.seconds = -1;
             this.numQuestions = secondsOrQuestions;
@@ -103,6 +93,9 @@ public class AminoQuiz {
         }
         System.out.println("Quiz over! Time taken: " + (millisecondsTaken)/1000 + " seconds.");
         System.out.println("Score: " + correctAnswers);
+        if (!endOnIncorrect) {
+            System.out.println("Incorrect answers: " + incorrectAnswers);
+        }
     }
     
     private void serveQuestion() {
